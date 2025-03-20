@@ -1,15 +1,25 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-    <script src="cilent.js"></script>
-    <link href="css/bootstrap.min.css" rel="stylesheet" />
+<script src="client.js"></script>
+<link href="css/bootstrap.min.css" rel="stylesheet" />
 </head>
 
 <body>
-    <img src="city.png"style="width: 100%; display: block; margin-bottom: 2px;">
-    <button id="btn" class="btn btn-primary my-2">Send Request</button>
-    <div id="msg"></div>
-    <div id="body"></div>
+    <button id="btn" class="btn btn-primary m-2">Send Request</button>
+    <table class="table table-striped">
+    <tbody>
+        <tr>
+            <th>Status!</th>
+            <td id="msg"></td>
+        </tr>
+        <tr>
+            <th>Response</th>
+            <td id="body"></td>
+        </tr>
+    </tbody>
+    </table>
 </body>
 
 </html>
