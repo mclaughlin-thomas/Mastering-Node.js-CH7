@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "server": "tsc-watch --onsuccess \"node dist/server.js\"",
-    "client": "webpack --watch",
+    "server": "tsc-watch --noClear --onsuccess \"node dist/server.js\"",
+    "client": "webpack serve",
     "start": "npm-run-all --parallel server client"
   },
   "keywords": [],
@@ -18,7 +18,8 @@
     "tsc-watch": "^6.0.4",
     "typescript": "^5.2.2",
     "webpack": "^5.89.0",
-    "webpack-cli": "^5.1.4"
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^4.15.1"
   },
   "dependencies": {
     "@types/node": "^20.6.1",
