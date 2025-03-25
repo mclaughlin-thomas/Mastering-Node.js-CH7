@@ -29,4 +29,12 @@ npm install --save-dev npm-run-all@4.1.5
 
 ## Creating Stand-Alone Bundles
 
-s
+The simplest way to use a bunder is a stand-alone tool.
+
+To configure webpack, lets add a file webpack.config.mjs to the webapp directory.
+
+This file uses js rather than json config file. The mjs extension specifies a js module, which allows us to use the import syntax.
+
+This basic config files tells webapck to process the client.js file in the static folder and write the bundle it creates to a file in the static folder and write the bundle it creates to a file named bundle.js in the dist/client directory.
+
+Updated html to use this bundle.js too.

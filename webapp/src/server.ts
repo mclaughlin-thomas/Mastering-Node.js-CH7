@@ -11,6 +11,7 @@ expressApp.post("/read", readHandler);
 expressApp.use(express.static("static"));
 
 expressApp.use(express.static("node_modules/bootstrap/dist"));
+expressApp.use(express.static("dist/client")); // this route will be used to get bundle
 
 const server = createServer(expressApp);
 

@@ -12,5 +12,6 @@ expressApp.use(express_1.default.json());
 expressApp.post("/read", readHandler_1.readHandler);
 expressApp.use(express_1.default.static("static"));
 expressApp.use(express_1.default.static("node_modules/bootstrap/dist"));
+expressApp.use(express_1.default.static("dist/client")); // this route will be used to get bundle
 const server = (0, http_1.createServer)(expressApp);
 server.listen(port, () => console.log(`HTTP Server listening on port ${port}`));
