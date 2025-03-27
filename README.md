@@ -76,4 +76,23 @@ It fails...
 The next sections we will look at THREE dirrerent ways this problem can be solved. Not all approaches work in every project because client-side frameworks do not always allow the underlying webpack config to be changed or .... But all frameworks can be used with at least of these approaches. It is worth experimenting to find one that works and suits your development style.
 
 ## Using a Different Request URL
-342
+The simplest approach is to change the URL to which the client-side js code sends requests. Edit client.js.
+
+This is simple but it does require changes to the server-side part of the app. Browsers allow js code to make HTTP reqs only within the same origin, which means URLs that have the same scheme, host, and port as the URL used to load the js code. What we have done is we have made it outside the origin! Oh no! The URL is outside the allowed origin so out browser is going to block that request. The solution... The solution to this problem is to use Cross-Origin Resource Sharing (CORS)!!!
+
+This will make the browser send an additional request to the target HTTP server to determine whether it will accept HTTP requests from the origin of the js code.
+
+If we try running we see it fails on OPTIONS method which is known as the pre-flight request, which allows the backend server to indicate whether it will accept the request.
+
+The response from the backend server did not include the Access-Control-Allow-Origin header, which would have indicated that cross-origin requests are allowed, therefore, the browser blocks the POST request. (pg 345).
+
+To fix, lets install CORS package for Express and a package that describes the API it provides for the TypeScript Compiler
+
+npm install cors@2.8.5
+npm install --save-dev @types/cors@2.8.16
+
+At this point our app still does not work, we must fix server.ts! All we have done is modify cilent.js.
+
+Now we must go to server.ts and allow cross-origin requests.
+Author typo here, server.TS should be server.ts. Email...
+
