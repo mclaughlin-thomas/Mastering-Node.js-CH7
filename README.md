@@ -123,3 +123,31 @@ We now must edit webpack.config.mjs.
 
 Now, if we restart our app, and go to http://localhost:5000, we will have the backend server receive the request and still benefit from the features of the webpack development server.
 We have used the backend server as a proxy for webpack.
+
+## Using a Content Security Policy
+
+CORS is an example of a set of request headers that were introduced to address malicious behavior by providing the browser with info about how the app is expected to work.
+
+There are additional headers that the backend server can set to provide the browser with insight into how the application works and what behaviors are expected. The most important header is Content-Security-Policy, which the backend server uses to describe the application's Content Security Policy (CSP). Our CSP tells the browser what behaviors are to be expected from the client-side app so that it can block suspicious activity.
+
+The use of CSPs is intended to prevent Cross-Site Scripting (XSS) attacks. Basically with XSS, attackers inject malicious content or code into the content displayed by the browser to perform a task NOT INTENDED BY THE APPLICATION DEVELOPERS. Typically it is something that steals sensitive info/data.
+
+A common cause of XSS arises when an application accepts input from one user that is subsequently incorporated into the content presented to other users.
+
+If an application accepts user reviews that are displayed alongside products, then for example, an attacker could craft a review that browsers interpret as HTML or js ontent when the product page is displayed.
+
+We are going to do an example!
+
+Adding element  to HTML, which allows user to enter data to later be displayed by the browser.
+
+Now we have to update the client-side js to handle this new user field.
+
+Now we also must update the handler, readHandler.ts that receives the data from the broswer so that it can pipe the data frmo the requests to the response.
+
+This means that whatever is entered into the input element will be sent to the server and then piped back to the browser, where it will be displayed to the user.
+
+The handler also sets a cookie in response.
+
+Okay! So, one of the uses of XSS attacks is to steal session creds so an attacker can impersonate a legit user. The cookie set by the code in the changed we just made in readHandler.ts is a placeholder for data that will be stolen.
+
+The changes made to the HTML, the client.js, and readHandler.ts deliberately creates a situation where input provided by the user is used without any form validation. This is a very common problem, XSS isone of the top 10 app security risks identified by OWASP.
