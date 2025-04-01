@@ -109,3 +109,17 @@ Editing client.js to use relative URLs
 So we made changes but webpack does not pick up changes to its config file automatically. So we have to stop it with control+C to stop the existing process and run npm start over again in the webapp folder to start webpack and the backend server again.
 
 Go to http://localhost:5100, three click the send message button and the webpack server will receive the request and act as a proxy to get a response from the backend server.
+
+## Forwarding Requests from the Backend Server to Webpack
+The third approach is to switch the servers around so the backend server forwards requests to the webpack server. This method has the advantage of making the development environment more consistent with production and ensures the headers set by the backend server are applied. To do this we must install a proxy package for express.
+
+npm install http-proxy@1.18.1
+
+We now must edit server.ts to forward requests.
+
+These changes enable the proxy, including support for dealing with web socket requests, which are used for the live reload feature, and which also must be forwarded to the webpack development server. We must also  update the required webpack config file to specify the URL that the client side live reloading will connect to.
+
+We now must edit webpack.config.mjs.
+
+Now, if we restart our app, and go to http://localhost:5000, we will have the backend server receive the request and still benefit from the features of the webpack development server.
+We have used the backend server as a proxy for webpack.
