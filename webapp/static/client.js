@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById("btn").addEventListener("click", sendReq);
 });
 
-const requestUrl = "http://localhost:5000/read";
+const requestUrl = "/read";
 
 sendReq = async () => {
     let payload = [];

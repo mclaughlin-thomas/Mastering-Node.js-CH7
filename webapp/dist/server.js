@@ -15,7 +15,8 @@ expressApp.use((0, cors_1.default)({
 // The CORS package contains an Express middleware package
 // that is applied with the use method. We currently have it
 // setup here to use the origin config setting to specify
-// requests are allowed from http://localhost:5100
+// requests are allowed from http://localhost:5100, which will
+// allow reqs from js code loaded from the webpack dev server
 expressApp.use(express_1.default.json());
 expressApp.post("/read", readHandler_1.readHandler);
 expressApp.use(express_1.default.static("static"));

@@ -96,3 +96,16 @@ At this point our app still does not work, we must fix server.ts! All we have do
 Now we must go to server.ts and allow cross-origin requests.
 Author typo here, server.TS should be server.ts. Email...
 
+## Forwarding Requests from Webpack to the Backend Server
+
+There are more sophisticated solutions than the one described in the previous section. A perhaps better one would be to configure the webpack dev server so it forwards requests to the backend server. The request forwarding is not apparaent to the browser, which means all requests are sent to the same origin and CORS is not required.
+
+Edited webpack.config.mjs to add support for forwarding requests.
+
+The proxy setting is used here to specify one or more paths and the URLs to which they should be forwarded.
+
+Editing client.js to use relative URLs
+
+So we made changes but webpack does not pick up changes to its config file automatically. So we have to stop it with control+C to stop the existing process and run npm start over again in the webapp folder to start webpack and the backend server again.
+
+Go to http://localhost:5100, three click the send message button and the webpack server will receive the request and act as a proxy to get a response from the backend server.
