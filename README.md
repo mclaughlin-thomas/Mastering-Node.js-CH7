@@ -151,3 +151,67 @@ The handler also sets a cookie in response.
 Okay! So, one of the uses of XSS attacks is to steal session creds so an attacker can impersonate a legit user. The cookie set by the code in the changed we just made in readHandler.ts is a placeholder for data that will be stolen.
 
 The changes made to the HTML, the client.js, and readHandler.ts deliberately creates a situation where input provided by the user is used without any form validation. This is a very common problem, XSS isone of the top 10 app security risks identified by OWASP.
+
+## Injecting Malicious Content
+
+Now time to inject malicious content.
+
+Create badServer.mjs
+
+This is the bad server that will serve content and receive requests on behalf of malicious code.
+
+Code is expressed for brevity rather than readability there...
+
+Lets start it with this command:
+
+node badServer.mjs
+
+## Defending a Content Security Policy
+
+A CSP tells the browser how the client-side app is expected to behave and is set with the Content-Security-Policy header as seen in updated Server.ts.
+
+This CSP header should be applied to every response, so... The listing uses the Express Use method to setup a middleware component that is used to pass the request along for further processing.
+
+The header value is the policy for the application and consists of one or more policy directives and values.
+
+The code in server.ts now contains one policy directive, which is img-src and whose value is self.
+
+The CSP specification defines a range of policies that specify the locations from which different content can be loaded.
+
+Useful CSP directives
+
+default-src
+
+connect-stc
+
+img-src
+
+script-src
+
+script-src-attr
+
+form-action
+
+---------------------------------
+
+The values for a policy can be specified using URLs with wildcards. Like:
+
+http://*.acme.com
+
+or a scheme like http: to allow HTTP requests or https: for all HTTPS requests.
+
+
+## Using a Package to Set the Policy Header
+
+It is possible to set the CSP header directly, but we can just use a package to help us out!
+
+npm install helmet@7.1.0
+
+Updating server.ts again but removing the 
+
+Server.ts now has a CSP that will allow images to be loaded from the HTML docs domain, block all js in element attributes, restrict js files to the docs domain, and limit the URLs to which connections can be made by js code.
+
+"This last directive specifies self , allowing HTTP connections to be sent to the backend server, but also includes the ws://localhost:5000 URL, which allows the connection required by the webpack live reload feature."
+
+We get an error now w webpack. Lets change config now.
+

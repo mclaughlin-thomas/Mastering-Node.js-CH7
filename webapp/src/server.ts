@@ -3,6 +3,7 @@ import express, {Express } from "express";
 import { readHandler } from "./readHandler";
 import cors from "cors";
 import httpProxy from "http-proxy";
+import helmet from "helmet";
 
 const port = 5000;
 
@@ -10,6 +11,23 @@ const expressApp: Express = express();
 const proxy = httpProxy.createProxyServer({
     target: "http://localhost:5100", ws: true
 });
+// expressApp.use((req, resp, next) => {
+//     resp.setHeader(
+//         "Content-Security-Policy",
+//         "img-src 'self'"
+//     );
+//     next();
+// })
+expressApp.use(helmet({
+    contentSecurityPolicy: {
+        directives: {
+            imgSrc: "'self'",
+            scriptSrcAttr: "'none'",
+            scriptSrc: "'self'",
+            connectSrc: "'self' ws://localhost:5000"
+        }
+    }
+}));
 expressApp.use(cors({
     origin: "http://localhost:5100"
 }));
